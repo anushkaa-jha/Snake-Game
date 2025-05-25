@@ -1,0 +1,322 @@
+:root {
+    --primary-color: #00ff9d;
+    --secondary-color: #00e1ff;
+    --accent-color: #ff00aa;
+    --bg-color: #121212;
+    --panel-color: #1e1e1e;
+    --text-color: #ffffff;
+    --snake-head: #00ff9d;
+    --snake-body: #00cc7a;
+    --apple-color: #ff3e3e;
+    --wall-color: #333333;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 10px rgba(0, 255, 157, 0.3);
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+}
+
+.social-links a {
+    color: var(--text-color);
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+    color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+.game-container {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+}
+
+#gameCanvas {
+    display: block;
+    width: 100%;
+    background-color: var(--panel-color);
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 255, 157, 0.2);
+    image-rendering: pixelated;
+    margin: 0 auto;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 500px;
+    margin-top: 20px;
+}
+
+.stats {
+    display: flex;
+    gap: 20px;
+}
+
+.stat {
+    background-color: var(--panel-color);
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+#score {
+    color: var(--primary-color);
+}
+
+#highScore {
+    color: var(--secondary-color);
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: var(--panel-color);
+    color: var(--text-color);
+    border: 1px solid var(--primary-color);
+}
+
+button:hover {
+    background-color: var(--primary-color);
+    color: #000;
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(0, 255, 157, 0.4);
+}
+
+#pauseBtn {
+    border-color: var(--secondary-color);
+}
+
+#pauseBtn:hover {
+    background-color: var(--secondary-color);
+    box-shadow: 0 0 15px rgba(0, 225, 255, 0.4);
+}
+
+#settingsBtn {
+    border-color: var(--accent-color);
+}
+
+#settingsBtn:hover {
+    background-color: var(--accent-color);
+    box-shadow: 0 0 15px rgba(255, 0, 170, 0.4);
+}
+
+#gameOver {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    z-index: 10;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+#gameOver.show {
+    opacity: 1;
+    pointer-events: all;
+}
+
+#gameOver h2 {
+    color: var(--accent-color);
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px rgba(255, 0, 170, 0.5);
+}
+
+#gameOver p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.mobile-controls {
+    display: none;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 10px;
+    width: 100%;
+    max-width: 300px;
+    margin-top: 20px;
+}
+
+.mobile-btn {
+    background-color: var(--panel-color);
+    border: 1px solid var(--primary-color);
+    color: var(--text-color);
+    font-size: 1.5rem;
+    padding: 15px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.mobile-btn:hover {
+    background-color: var(--primary-color);
+    color: #000;
+}
+
+.mobile-btn.up {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.mobile-btn.left {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.mobile-btn.right {
+    grid-column: 3;
+    grid-row: 2;
+}
+
+.mobile-btn.down {
+    grid-column: 2;
+    grid-row: 3;
+}
+
+.settings-panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    z-index: 20;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.settings-panel.show {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.settings-panel h2 {
+    color: var(--secondary-color);
+    margin-bottom: 20px;
+}
+
+.setting-group {
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 15px;
+}
+
+.setting-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--text-color);
+}
+
+.setting-group select {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid var(--primary-color);
+    background-color: var(--panel-color);
+    color: var(--text-color);
+}
+
+.close-settings {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: var(--accent-color);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.close-settings:hover {
+    background-color: #ff0099;
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(255, 0, 170, 0.4);
+}
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .mobile-controls {
+        display: grid;
+    }
+    
+    .controls {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .stats, .buttons {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
